@@ -2,12 +2,332 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Diagnostics;
 
 namespace ConsoleApp1
 {
     public class Codility
     {
-        
+        private EuclideanAlgorithm _algo;
+        public Codility(EuclideanAlgorithm algo)
+        {
+            _algo = algo;
+        }
+
+        public int check()
+        {
+            return _algo.Count;
+        }
+    }
+
+    public sealed class Greedy
+    {
+        //only 25% correctness for this solution
+        public int TieRopes(int K , int[] A)
+        {
+            Array.Sort(A);
+            var ret = 0;
+            var sum = 0;
+            foreach(var a in A)
+            {
+                sum += a;
+                if(sum >= K)
+                {
+                    sum = 0;
+                    ret++;
+                }
+            }
+
+            return ret;
+        }
+    }
+
+    public sealed class CaterPillarMethod
+    {
+        //time complexity is O(n*n)
+        public int DistinctSlice(int M, int[] A)
+        {
+            var ret = 0;
+            for(int i = 0; i < A.Length; i++)
+            {
+                ret++; //only one item in slice
+                var set = new HashSet<int>();
+                set.Add(A[i]);
+
+                for(int j = i+1; j < A.Length; j++)
+                {
+                    if(set.Contains(A[j]))
+                    {
+                        break;
+                    }
+                    set.Add(A[j]);
+                    ret++;
+                }
+            }
+
+            return ret;
+        }
+
+        //time complexity is O(n), this method only pass 10%, need to modified
+        public int DistinctSlice2(int M, int[] A)
+        {
+            var ret = 0;
+            for(int i = 0; i < A.Length; i++)
+            {
+                ret++; //only one item in slice
+                var set = new HashSet<int>();
+                set.Add(A[i]);
+
+                for(int j = i+1; j < A.Length; j++)
+                {
+                    if(set.Contains(A[j]))
+                    {
+                        ret += set.Count() * (set.Count() + 1) / 2;
+                        i = j - 1;
+                        break;
+                    }
+                    set.Add(A[j]);
+                }
+            }
+
+            return ret;
+        }
+    }
+
+    public sealed class BinarySearchAlgo
+    {
+        //mid is max of sum of block
+        private int getBlocks(int[] A, int mid)
+        {
+            var blocks = 1;
+            var curSum = 0;
+            foreach(var a in A)
+            {
+                if(curSum+a > mid)
+                {
+                    blocks += 1;
+                    curSum = a;
+                }
+                else
+                {
+                    curSum += a;
+                }
+            }
+
+            return blocks;
+        }
+
+        public int MinMaxDivision(int K, int M, int[] A)
+        {
+            int max = A.Sum();
+            int min = max / K;
+            while(min <= max)
+            {
+                var mid = (min + max) / 2;
+                var blocks = getBlocks(A, mid);
+                if(blocks > K)
+                {
+                    min = mid+1;
+                }else
+                {
+                    max = mid-1;
+                }
+            }
+
+            return min;
+        }
+    }
+
+    public sealed class FibonacciNumbers
+    {
+        private List<int> Fib(int max)
+        {
+            var ret = new List<int>() { 1, 1 };
+            var n = 2;
+            while(n <= max)
+            {
+                ret.Add(n);
+                n = ret.TakeLast(2).Sum();
+            }
+
+            return ret;
+        }
+
+        public int FibCount(int max)
+        {
+            return Fib(max).Count();
+        }
+
+        public int FibFrog(int[] A)
+        {
+            var fibs = this.Fib(100000);
+            var leafs = new List<int>();
+            leafs.Add(0);
+            for(var i = 0; i < A.Length; i++)
+            {
+                if (A[i] == 1) leafs.Add(i+1);
+            }
+            leafs.Add(A.Length+1);
+
+            var steps = new int[A.Length + 2];
+            var canReach = new List<int>();
+            canReach.Add(0);
+
+            for (var s = 0; s < leafs.Count(); s++) 
+            {
+                var curPos = leafs[s];
+                if (canReach.Contains(curPos) == false) continue;
+
+                for(int i = s; i < leafs.Count(); i++)  
+                {
+                    if (fibs.Contains(leafs[i] - curPos))
+                    {
+                        if (steps[leafs[i]]== 0)
+                        {
+                            steps[leafs[i]] = steps[curPos] + 1;
+                            canReach.Add(leafs[i]);
+                        }
+
+                        if(i == leafs.Count() - 1)
+                        {
+                            return steps[curPos] + 1;
+                        }
+                    }
+                }
+            }
+
+            return -1;
+        }
+    }
+
+    public sealed class EuclideanAlgorithm
+    {
+        public int Count { get; set; }
+        //O(n) time complex
+        public int NumberOfChocolate(int N, int M)
+        {
+            var set = new HashSet<int>();
+            if (N == 0) return 0;
+
+            var a = 0;
+            set.Add(a);
+            while(set.Contains((a+M)%N) == false)
+            {
+                set.Add((a + M) % N);
+                a = a + M;
+            }
+
+            return set.Count();
+        }
+
+        public int NumberOfChocolate2(int N, int M)
+        {
+            var g = gcd(N, M);
+//            throw new FormatException();
+            return N / g;
+        }
+
+        private int gcd(int N, int M)
+        {
+            if (N % M == 0) return M;
+            return gcd(M, N % M);
+        }
+    }
+
+    public sealed class SieveOfEratosthenes
+    {
+        //https://app.codility.com/demo/results/demoQFK5R5-YGD/ this is a C++ solution using Sieve method
+
+        // the O(n*n) is too slow   
+        public int[] CountOfNonDivisor(int[] A)
+        {
+            
+            var ret = new int[A.Length];
+            for(var i = 0; i < A.Length; i++)
+            {
+                var c = 0;
+                for(var j = 0; j < A.Length; j++)
+                {
+                    if (A[j] > A[i])
+                    {
+                        c++;
+                    }
+                    else if(A[i] % A[j] != 0) 
+                    {
+                        c++;
+                    }
+                }
+                ret[i] = c;
+            }
+
+            return ret;
+        }
+
+        public int[] CountSemiprimes(int N, int[] P, int[] Q)
+        {
+            var semiPrimes = this.SemiPrimes(N);
+            int[] ret = new int[P.Length];
+            int[] semiCounts = new int[semiPrimes.Length];
+            semiCounts[0] = 0;
+            for(var i = 1; i < semiPrimes.Length; i++)
+            {
+                semiCounts[i] = semiCounts[i - 1];
+                if(semiPrimes[i])
+                {
+                    semiCounts[i] += 1;
+                }
+            }
+
+
+            for(var i = 0; i <P.Length; i++)
+            {
+                ret[i] = semiCounts[Q[i]] - semiCounts[P[i]];
+            }
+
+            return ret;
+        }
+
+        public bool[] Primes(int N)
+        {
+            var ret = new bool[N+1];
+            for(int i = 2; i < N+1; i++)
+            {
+                ret[i] = true;
+            }
+            for(int i = 2; i*i <= N; i++)
+            {
+                if(ret[i])
+                {
+                    var ite = i * 2;
+                    while(ite < N+1)
+                    {
+                        ret[ite] = false;
+                        ite += i;
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        public bool[] SemiPrimes(int N)
+        {
+            var ret = new bool[N+1];
+            var primes = Primes(N / 2);
+
+            for(int i = 2; i < primes.Length; i++)
+            {
+                for(int j = i; j<primes.Length; j++)
+                {
+                    if(i * j < N+1 && primes[i] && primes[j])
+                    {
+                        ret[i * j] = true;
+                    }
+                }
+            }
+
+            return ret;
+        }
     }
 
     public sealed class PrimeAndCompositeNumbers

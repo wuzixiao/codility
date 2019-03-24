@@ -116,4 +116,87 @@ namespace XUnitTestProject1
             Assert.Equal(22, new PrimeAndCompositeNumbers().MinPerimeterRectangle(30));
         }
     }
+
+    public sealed class SieveOfEratosthenesTest
+    {
+        [Fact]
+        public void PrimesTest()
+        {
+            var sieve = new SieveOfEratosthenes();
+            var expectPrimes = new bool[] { false,false, true, true, false, true, false, true, false, false, false };
+            Assert.Equal(expectPrimes, sieve.Primes(10));
+            var expectSemiPrimes = new bool[] { false,false, false, false, true, false, true, false, false, true, true, false,false };
+            Assert.Equal(expectSemiPrimes, sieve.SemiPrimes(12));
+        }
+
+        [Fact]
+        public void NonDivisorTest()
+        {
+            var sieve = new SieveOfEratosthenes();
+            var expectResult = new int[] { 2, 4, 3, 2, 0 };
+            Assert.Equal(expectResult, sieve.CountOfNonDivisor(new int[] { 3, 1, 2, 3, 6 }));
+        }
+    }
+
+    public sealed class EuclideanAlgorithmTest
+    {
+        [Fact]
+        public void NumberOfChocalateTest()
+        {
+            var algo = new EuclideanAlgorithm();
+            Assert.Equal(5, algo.NumberOfChocolate2(10, 4));
+         //   Assert.Throws<FormatException>(() => algo.NumberOfChocolate2(10, 4));
+
+            Assert.Equal(5, algo.NumberOfChocolate(10, 4));
+
+            var code = new Codility(algo);
+            algo.Count = 2;
+
+            Assert.Equal(2, code.check());
+        }
+    }
+
+    public sealed class FibonacciNumbersTest
+    {
+        [Fact]
+        public void FibFrogTest()
+        {
+            var fibFrog = new FibonacciNumbers();
+            Assert.True(fibFrog.FibCount(100000) > 23);
+
+            var A = new int[] { 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0 };
+            Assert.Equal(3, fibFrog.FibFrog(A));
+        }
+    }
+
+    public sealed class BinarySearchAlgoTest
+    {
+        [Fact]
+        public void MinMaxDivisionTest()
+        {
+            var binarySearch = new BinarySearchAlgo();
+            Assert.Equal(6, binarySearch.MinMaxDivision(3, 5, new int[] { 2, 1, 5, 1, 2, 2, 2 }));
+        }
+    }
+
+    public sealed class CaterPillarMethodTest
+    {
+        [Fact]
+        public void DistinctSliceCountTest()
+        {
+            var method = new CaterPillarMethod();
+            Assert.Equal(9, method.DistinctSlice(5,new int[] { 3, 4, 5, 5, 2 }));
+            Assert.Equal(9, method.DistinctSlice2(5,new int[] { 3, 4, 5, 5, 2 }));
+        }
+    }
+
+    public sealed class GreedyTest
+    {
+        [Fact]
+        public void TieRopesTest()
+        {
+            var greedy = new Greedy();
+            Assert.Equal(3, greedy.TieRopes(4, new int[] { 1, 1, 2, 3, 4, 1, 3 }));
+        }
+    }
 }
