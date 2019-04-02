@@ -199,4 +199,16 @@ namespace XUnitTestProject1
             Assert.Equal(3, greedy.TieRopes(4, new int[] { 1, 1, 2, 3, 4, 1, 3 }));
         }
     }
+
+    public sealed class DynamicProgrammingTest
+    {
+        [Fact]
+        public void NumberSolitaireTest()
+        {
+            var dp = new DynamicProgramming();
+
+            Assert.Equal(8, dp.NumberSolitaire(new int[] { 1,-2,0,9,-1,-2}));
+            Assert.Equal(4, dp.NumberSolitaire(new int[] { -2,5,1}));
+        }
+    }
 }

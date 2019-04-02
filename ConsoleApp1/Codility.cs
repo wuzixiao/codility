@@ -20,6 +20,36 @@ namespace ConsoleApp1
         }
     }
 
+    public sealed class DynamicProgramming
+    {
+        private int getValue(int[] max, int index)
+        {
+            if (index < 0) return -10000;
+            if (index >= max.Length) return 0;
+            if (max[index] >= -10000*max.Length) return max[index];
+
+            return 0;
+        }
+
+        private int getMax(int[] array)
+        {
+            return array.Max();
+        }
+
+        //100% pass
+        public int NumberSolitaire(int[] A)
+        {
+            var maxArray = Enumerable.Repeat(int.MinValue, A.Length).ToArray();
+            maxArray[0] = A[0];
+            for (int i = 1; i < A.Length; i++)
+            {
+                maxArray[i] = getMax(new int[] { getValue(maxArray, i - 1), getValue(maxArray, i - 2), getValue(maxArray, i - 3), getValue(maxArray, i - 4), getValue(maxArray, i - 5), getValue(maxArray, i - 6)}) + A[i];
+            }
+
+            return maxArray[A.Length-1];
+        }
+    }
+
     public sealed class Greedy
     {
         //only 25% correctness for this solution
