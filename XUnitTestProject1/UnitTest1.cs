@@ -211,4 +211,5 @@ namespace XUnitTestProject1
             Assert.Equal(4, dp.NumberSolitaire(new int[] { -2,5,1}));
         }
     }
+
 }
