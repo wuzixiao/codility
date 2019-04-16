@@ -9,17 +9,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var n = 4;
-            for(var i = 1; i < n; i++)
-            {
-                Console.WriteLine("L");
-            }
-            for(var i = 0; i < n; i++)
-            {
-                Console.Write("L");
-            }
-
-            Console.Read();
+            var download = new DownloadContent();
+            download.CancelableDownload();
         }
     }
     public class ListNode

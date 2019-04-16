@@ -67,9 +67,9 @@ namespace XUnitTestProject1
             var mockLogger = new Mock<ILogger>();
             var mockEvaluators = new Mock<IEnumerable<Func<Coupon, Guid, bool>>>();
             var mockCouponProvider = new Mock<ICouponProvider>();
-            mockCouponProvider
-                .Setup(provider => provider.Retrieve(couponId))
-                .ReturnsAsync((string)null);
+            //mockCouponProvider
+            //    .Setup(provider => provider.Retrieve(couponId))
+            //    .ReturnsAsync((string)null);
 
             var manager = new CouponManager(mockLogger.Object, mockCouponProvider.Object);
 
@@ -77,7 +77,7 @@ namespace XUnitTestProject1
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => manager.CanRedeemCoupon(couponId, userId, mockEvaluators.Object));
 
             //Assert
-            Assert.Equal(nameof(evaluators),exception.ParamName);
+            //Assert.Equal(nameof(evaluators),exception.ParamName);
         }
     }
 }
