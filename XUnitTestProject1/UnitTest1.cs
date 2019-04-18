@@ -1,11 +1,21 @@
 using ConsoleApp1;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace XUnitTestProject1
 {
     public class UnitTest1
     {
+        private readonly ITestOutputHelper _output;
+
+        public UnitTest1(ITestOutputHelper output)
+        {
+            this._output = output;
+        }
+
         [Fact]
         public void Test1()
         {
@@ -45,6 +55,22 @@ namespace XUnitTestProject1
 
     public sealed class CountingElementTest
     {
+        [Fact]
+        public void Is_Perm()
+        {
+            var counting = new CountingElement();
+            var nums = new int[] { 1,2,4,3 };
+            Assert.Equal(1, counting.Check_Perm(nums));
+        }
+
+        [Fact]
+        public void Not_Perm_When_duplicate_exist()
+        {
+            var counting = new CountingElement();
+            var nums = new int[] { 3,1,2,4,3 };
+            Assert.Equal(0, counting.Check_Perm(nums));
+        }
+
         [Fact]
         public void MissingIntegerTest1()
         {
@@ -209,6 +235,26 @@ namespace XUnitTestProject1
 
             Assert.Equal(8, dp.NumberSolitaire(new int[] { 1,-2,0,9,-1,-2}));
             Assert.Equal(4, dp.NumberSolitaire(new int[] { -2,5,1}));
+        }
+    }
+
+    public sealed class TestAsync
+    {
+        private readonly ITestOutputHelper _output;
+
+        public TestAsync(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
+        [Fact]
+        public async Task AsyncTEstAsync()
+        {
+            _output.WriteLine(DateTime.Now.ToString("yyyy¡¯-¡®MM¡¯-¡®dd¡¯T¡¯HH¡¯:¡¯mm¡¯:¡¯ss.ff"));
+            var t = Task.Delay(1000);
+            //Thread.Sleep(1000);
+            _output.WriteLine(DateTime.Now.ToString("yyyy¡¯-¡®MM¡¯-¡®dd¡¯T¡¯HH¡¯:¡¯mm¡¯:¡¯ss.ff"));
+            await t;
         }
     }
 

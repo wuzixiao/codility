@@ -668,6 +668,25 @@ namespace ConsoleApp1
 
     public class CountingElement
     {
+        public int Check_Perm(int[] A)
+        {
+            var bitmap = new bool[A.Length];
+            foreach(var a in A)
+            {
+                if(a > 0 && a <= A.Length)
+                {
+                    bitmap[a - 1] = true;
+                }
+            }
+
+            foreach(var b in bitmap)
+            {
+                if (!b) return 0;
+            }
+
+            return 1;
+        }
+
         public int MissingInteger2(int[] A)
         {
             //solution with bitmap

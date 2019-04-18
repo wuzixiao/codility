@@ -12,6 +12,12 @@ namespace ConsoleApp1
             return await response.Content.ReadAsStringAsync();
         }
 
+        private async Task Wait()
+        {
+            await Task.Delay(1000);
+            System.Console.WriteLine("wait1");
+        }
+
         private async Task<string> DownloadMultiAsync(CancellationToken token)
         {
             HttpClient client = new HttpClient();
@@ -24,13 +30,17 @@ namespace ConsoleApp1
 
         public async void CancelableDownload()
         {
-            var tokenSource = new CancellationTokenSource();
-            var allContent = await DownloadMultiAsync(tokenSource.Token);
+            //var tokenSource = new CancellationTokenSource();
+            //var allContent = await DownloadMultiAsync(tokenSource.Token);
+            await Wait();
+            await Wait();
+            await Wait();
 
             Thread.Sleep(1000);
+            System.Console.WriteLine("100");
 
             //manually cancel download
-            tokenSource.Cancel();
+            //tokenSource.Cancel();
         }
 
     }
