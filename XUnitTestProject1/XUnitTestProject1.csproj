@@ -16,6 +16,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\ConsoleApp1.csproj" />
   </ItemGroup>
+<ItemGroup>
+   <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0" />
+</ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />

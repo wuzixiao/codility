@@ -340,6 +340,68 @@ namespace ConsoleApp1
             return ret;
         }
 
+        public int[] FindFourPrimes2(int N)  {
+            var primes = Primes(N);
+            var lstPrimes = new List<int>();
+            for(var i = 0; i < N; i++) {
+                if(primes[i]) {
+                    lstPrimes.Add(i);
+                }
+            }
+
+            for(var a = 0; a < lstPrimes.Count(); a++) {
+                for(var b = a; b < lstPrimes.Count(); b++) {
+                    for(var c = b; c < lstPrimes.Count(); c++) {
+                        for(var d = c; d < lstPrimes.Count(); d++) {
+                            if(IsSeqInt(lstPrimes[a]*lstPrimes[b] * lstPrimes[c] *lstPrimes[d])) {
+                                return new int[] {lstPrimes[a],lstPrimes[b],lstPrimes[c],lstPrimes[d]};
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+        public int[] FindFourPrimes(int N) 
+        {
+            var primes = Primes(N);
+
+            for(var a = N-1; a >= N; a--) 
+            {
+                for(var b = a; b >= N; b--) 
+                {
+                    for(var c = b; c >= N; c--) 
+                    {
+                        for (var d = c; d >= N; d--) 
+                        {
+                            if(primes[a] && primes[b] && primes[c] && primes[d]) 
+                            {
+                                if(IsSeqInt(a*b*c*d)) {
+                                    return new int[] {a,b,c,d};
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public bool IsSeqInt(int n)
+        {
+            var str = n.ToString();
+           if(str.Length != 12) return false;
+
+            for(var i = 0; i < str.Length-1; i++) {
+                if(str[i] != str[i+1] && Math.Abs(str[i]-str[i+1]) != 1) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public bool[] SemiPrimes(int N)
         {
             var ret = new bool[N+1];
@@ -358,6 +420,7 @@ namespace ConsoleApp1
 
             return ret;
         }
+
     }
 
     public sealed class PrimeAndCompositeNumbers

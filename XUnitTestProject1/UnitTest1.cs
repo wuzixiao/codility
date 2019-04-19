@@ -146,6 +146,22 @@ namespace XUnitTestProject1
     public sealed class SieveOfEratosthenesTest
     {
         [Fact]
+        public void IsSeqIntTest()
+        {
+            var sieve = new SieveOfEratosthenes();
+            Assert.Equal(sieve.IsSeqInt(1000), true);
+            Assert.Equal(sieve.IsSeqInt(889), false);
+        }
+
+        [Fact]
+        public void FourPrimesTest()
+        {
+            var sieve = new SieveOfEratosthenes();
+            //Assert.Equal(sieve.FindFourPrimes(1000), new int[4]{1,3,4,5});
+            Assert.Equal(sieve.FindFourPrimes2(1000), new int[4]{1,3,4,5});
+        }
+
+        [Fact]
         public void PrimesTest()
         {
             var sieve = new SieveOfEratosthenes();
@@ -250,10 +266,10 @@ namespace XUnitTestProject1
         [Fact]
         public async Task AsyncTEstAsync()
         {
-            _output.WriteLine(DateTime.Now.ToString("yyyy¡¯-¡®MM¡¯-¡®dd¡¯T¡¯HH¡¯:¡¯mm¡¯:¡¯ss.ff"));
+            _output.WriteLine(DateTime.Now.ToString("yyyyï¿½ï¿½-ï¿½ï¿½MMï¿½ï¿½-ï¿½ï¿½ddï¿½ï¿½Tï¿½ï¿½HHï¿½ï¿½:ï¿½ï¿½mmï¿½ï¿½:ï¿½ï¿½ss.ff"));
             var t = Task.Delay(1000);
             //Thread.Sleep(1000);
-            _output.WriteLine(DateTime.Now.ToString("yyyy¡¯-¡®MM¡¯-¡®dd¡¯T¡¯HH¡¯:¡¯mm¡¯:¡¯ss.ff"));
+            _output.WriteLine(DateTime.Now.ToString("yyyyï¿½ï¿½-ï¿½ï¿½MMï¿½ï¿½-ï¿½ï¿½ddï¿½ï¿½Tï¿½ï¿½HHï¿½ï¿½:ï¿½ï¿½mmï¿½ï¿½:ï¿½ï¿½ss.ff"));
             await t;
         }
     }
