@@ -522,6 +522,31 @@ namespace ConsoleApp1
             return ret;
         }
 
+        /*
+            It is an interview question I met before. 
+            Given a list of temperature, find out the point where min of right part is larger than max of left part.
+            There are several solutions to resolve this problem:
+                1. Iterate from the left side of the list, say i is current point. get the max of i's left.
+                    use it compare with the right of i, if no element is smaller than i. It is the position.
+                2. Obviously, the 1st solution is too slow.
+         */
+         public int FindChangePoint(int[] T) 
+         {
+             var maxLeft = Int32.MinValue;
+             var minRight = Int32.MaxValue;
+
+             for(var i = 0; i < T.Length-1; i++) {
+                 maxLeft = Math.Max(maxLeft, T[i]);
+                 for(var j = i + 1; j < T.Length; j++) {
+                     minRight = Math.Min(minRight, T[j]);
+                     if(minRight > maxLeft) {
+                         return i;
+                     }
+                 }
+             }
+
+             return -1; //no solution
+         }
 
     }
 
@@ -571,7 +596,6 @@ namespace ConsoleApp1
 
     public class StackAndQueue
     {
-        
         public int Fish2(int[] A, int[] B)
         {
             //this version pass with 100%
