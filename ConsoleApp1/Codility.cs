@@ -349,11 +349,11 @@ namespace ConsoleApp1
                 }
             }
 
-            for(var a = 0; a < lstPrimes.Count(); a++) {
-                for(var b = a; b < lstPrimes.Count(); b++) {
-                    for(var c = b; c < lstPrimes.Count(); c++) {
-                        for(var d = c; d < lstPrimes.Count(); d++) {
-                            if(IsSeqInt(lstPrimes[a]*lstPrimes[b] * lstPrimes[c] *lstPrimes[d])) {
+            for(var a = lstPrimes.Count()-1; a >= 0; a--) {
+                for(var b = a-1; b >= 0; b--) {
+                    for(var c = b-1; c >= 0; c--) {
+                        for(var d = c-1; d >= 0; d--) {
+                            if(IsSeqInt((long)lstPrimes[a]*lstPrimes[b] * lstPrimes[c] *lstPrimes[d])) {
                                 return new int[] {lstPrimes[a],lstPrimes[b],lstPrimes[c],lstPrimes[d]};
                             }
                         }
@@ -388,7 +388,7 @@ namespace ConsoleApp1
             return null;
         }
 
-        public bool IsSeqInt(int n)
+        public bool IsSeqInt(long n)
         {
             var str = n.ToString();
            if(str.Length != 12) return false;
