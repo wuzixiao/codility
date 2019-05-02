@@ -751,6 +751,28 @@ namespace ConsoleApp1
 
             return ret;
         }
+
+        /*
+            0   1   2   3   4
+            ->      ->
+                <-      <-  <-
+            So, (0,1)   (0,3)   (0,4)   (2,3)   (2,4) will meet with each other
+         */
+        public int CountPassingCars(int[] A) {
+            var nums = 0;
+            var eastCars = 0;
+            foreach(var a in A) {
+                eastCars += a;
+            }
+            foreach(var a in A) {
+                if(a == 0) {
+                    nums += eastCars;
+                } else {
+                    eastCars -= 1;
+                }
+            }
+            return nums;
+        }
     }
 
     public class CountingElement
