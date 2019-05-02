@@ -349,11 +349,11 @@ namespace ConsoleApp1
                 }
             }
 
-            for(var a = 0; a < lstPrimes.Count(); a++) {
-                for(var b = a; b < lstPrimes.Count(); b++) {
-                    for(var c = b; c < lstPrimes.Count(); c++) {
-                        for(var d = c; d < lstPrimes.Count(); d++) {
-                            if(IsSeqInt(lstPrimes[a]*lstPrimes[b] * lstPrimes[c] *lstPrimes[d])) {
+            for(var a = lstPrimes.Count()-1; a >= 0; a--) {
+                for(var b = a-1; b >= 0; b--) {
+                    for(var c = b-1; c >= 0; c--) {
+                        for(var d = c-1; d >= 0; d--) {
+                            if(IsSeqInt((long)lstPrimes[a]*lstPrimes[b] * lstPrimes[c] *lstPrimes[d])) {
                                 return new int[] {lstPrimes[a],lstPrimes[b],lstPrimes[c],lstPrimes[d]};
                             }
                         }
@@ -388,7 +388,7 @@ namespace ConsoleApp1
             return null;
         }
 
-        public bool IsSeqInt(int n)
+        public bool IsSeqInt(long n)
         {
             var str = n.ToString();
            if(str.Length != 12) return false;
@@ -528,8 +528,29 @@ namespace ConsoleApp1
             There are several solutions to resolve this problem:
                 1. Iterate from the left side of the list, say i is current point. get the max of i's left.
                     use it compare with the right of i, if no element is smaller than i. It is the position.
-                2. Obviously, the 1st solution is too slow.
+                2. Obviously, the 1st solution is too slow because it is O(n*n). It can be optimized by using O(n) space
+                    to save the largest temperature of right of each element thus we don't need to iterate the inner loop.
          */
+         public int FindChangePoint_Better(int[] T) {
+             var maxLeft = Int32.MinValue;
+             var minRight = Int32.MaxValue;
+             var len = T.Length;
+             var minsRight = new int[len];
+             //build minsRight array from right to left
+             for(var i = T.Length-1; i >= 0; i--) {
+                 minsRight[i] = Math.Min(minsRight[i], minRight);
+                 minRight = minsRight[i];
+             }
+
+             for(var i = 0; i < T.Length -1; i++) {
+                 maxLeft = Math.Max(T[i], maxLeft);
+                 if(maxLeft == minsRight[i]) {
+                     return i;
+                 }
+             }
+
+             return -1;
+         }
          public int FindChangePoint(int[] T) 
          {
              var maxLeft = Int32.MinValue;

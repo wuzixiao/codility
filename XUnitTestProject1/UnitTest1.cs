@@ -166,6 +166,10 @@ namespace XUnitTestProject1
         {
             var sieve = new SieveOfEratosthenes();
             //Assert.Equal(sieve.FindFourPrimes(1000), new int[4]{1,3,4,5});
+            var primes = sieve.Primes(1000);
+            // 863 * 811 * 563 * 313
+            Assert.Equal(true, sieve.IsSeqInt(123334444567));
+            Assert.Equal(new bool[4]{primes[863], primes[811], primes[563], primes[313]}, new bool[4]{true,true,true,true});
             Assert.Equal(sieve.FindFourPrimes2(1000), new int[4]{1,3,4,5});
         }
 
