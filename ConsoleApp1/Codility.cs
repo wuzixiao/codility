@@ -792,7 +792,7 @@ namespace ConsoleApp1
                     eastCars -= 1;
                 }
             }
-            return nums;
+            return nums > 1000000000 ? -1 : nums;
         }
     }
 
