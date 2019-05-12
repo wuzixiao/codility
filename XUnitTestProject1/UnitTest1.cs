@@ -86,6 +86,14 @@ namespace XUnitTestProject1
     public sealed class PrefixSumsTest
     {
         [Fact]
+        public void CountingCarsTest() {
+            var prefixSums = new PrefixSums();
+            var cars = new int[] {0,1,0,1,1};
+
+            Assert.Equal(5, prefixSums.CountPassingCars(cars));
+        }
+
+        [Fact]
         public void MinAvgTwoSliceTest1()
         {
             var prefixSums = new PrefixSums();
