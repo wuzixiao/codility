@@ -200,6 +200,18 @@ namespace XUnitTestProject1
         }
     }
 
+
+    public sealed class SortingTest
+    {
+        [Fact]
+        public void ThreeNumberProductMaxTest() {
+            var sorting = new Sorting();
+            var a = new int[] {3, 1, 0, -1, -2, 3,3};
+
+            Assert.Equal(27, sorting.MaxProductOfThree(a));
+        }  
+    }
+
     public sealed class EuclideanAlgorithmTest
     {
         [Fact]

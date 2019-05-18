@@ -708,6 +708,14 @@ namespace ConsoleApp1
 
     public class Sorting
     {
+        public int MaxProductOfThree(int[] A) {
+            Array.Sort(A);
+            int len = A.Length;
+            var prod1 = A[len-1] * A[len-2] * A[len-3];
+            var prod2 = A[len-1] * A[0] * A[1];
+
+            return Math.Max(prod1, prod2);
+        }
         public int NumberOfDiscIntersections(int[] A)
         {
             //not 100% pass, bad performance
