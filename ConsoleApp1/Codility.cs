@@ -617,6 +617,27 @@ namespace ConsoleApp1
 
     public class StackAndQueue
     {
+        public bool Brackets(string S) {
+            var stack = new Stack<char>();
+            Func<char, char, bool> pair = (c1, c2) =>
+            {
+                if(c1 == '(' && c2 == ')' || c1  == '[' && c2 == ']' || c1 == '{' && c2 == '}') {
+                    return true;
+                }
+                return false;
+            };
+
+            for(var i = 0; i < S.Length; i++) {
+                if(stack.Count == 0 || !pair(stack.Peek(), S[i])) {
+                    stack.Push(S[i]);
+                }else {
+                    stack.Pop();
+                }
+            }
+
+            return stack.Count == 0;
+        }
+
         public int Fish2(int[] A, int[] B)
         {
             //this version pass with 100%

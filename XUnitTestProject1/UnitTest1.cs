@@ -105,6 +105,14 @@ namespace XUnitTestProject1
     public sealed class StackAndQueueTest
     {
         [Fact]
+        public void BracketTest() {
+            var stackAndQueue = new StackAndQueue();
+            Assert.True(stackAndQueue.Brackets("{[()()]}"));
+            Assert.False(stackAndQueue.Brackets("{[(]}"));
+            Assert.False(stackAndQueue.Brackets("{[)(()]}"));
+        }
+
+        [Fact]
         public void FishTest()
         {
             var stackAndQueue = new StackAndQueue();
