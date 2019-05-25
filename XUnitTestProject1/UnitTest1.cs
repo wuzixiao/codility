@@ -118,6 +118,14 @@ namespace XUnitTestProject1
     public sealed class LeaderTest
     {
         [Fact]
+        public void EquiLeaderTest() {
+            var leader = new Leader();
+            var nums = new int[] { 4, 3,4,4,4,2};
+
+            Assert.Equal(2, leader.EquiLeader(nums));
+        }
+
+        [Fact]
         public void DominatorTest()
         {
             var leader = new Leader();

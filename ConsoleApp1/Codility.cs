@@ -573,6 +573,18 @@ namespace ConsoleApp1
 
     public class Leader
     {
+        public int EquiLeader(int[] A) {
+            var ret = 0;
+            for(var i = 1; i < A.Length -1; i++) {
+                var d1 = Dominator(A.Take(i).ToArray());
+                var d2 = Dominator(A.TakeLast(i).ToArray());
+                if(d1!= -1 && d2 != -1 && A[d1] == A[d2]) {
+                    ret ++;
+                }
+            }
+
+            return ret;
+        }
         public int Dominator(int[] A)
         {
             //three methods for this question

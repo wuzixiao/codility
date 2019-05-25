@@ -9,8 +9,10 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var download = new DownloadContent();
-            download.CancelableDownload();
+            var leader = new Leader();
+            var nums = new int[] { 4, 3,4,4,4,2};
+            leader.EquiLeader(nums);
+            
         }
     }
     public class ListNode
