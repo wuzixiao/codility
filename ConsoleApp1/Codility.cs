@@ -490,6 +490,23 @@ namespace ConsoleApp1
 
     public sealed class MaxSliceSum
     {
+         public int MaxProfit(int[] A) {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            if(A.Length == 0) return 0;
+            
+            var curLowest = A[0];
+            var curMaxProfit = 0;
+            
+            foreach(var a in A) {
+                if(a < curLowest) {
+                    curLowest = a;
+                    continue;
+                }
+                curMaxProfit = Math.Max(curMaxProfit, a - curLowest);
+            }
+            return curMaxProfit;
+        }
+
         public int MaxSlice1(int[] A)
         {
 

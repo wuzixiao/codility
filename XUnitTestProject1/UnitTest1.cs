@@ -148,6 +148,16 @@ namespace XUnitTestProject1
     public sealed class MaxSliceSumTest
     {
         [Fact]
+        public void MaxProfitTest()
+        {
+            var maxSlice = new MaxSliceSum();
+            var nums = new int[] { 23171, 21011, 21123, 21366, 21013, 21367};
+
+            Assert.Equal(356, maxSlice.MaxProfit(nums));
+        }
+
+        [Fact]
+
         public void MaxSliceTest()
         {
             var maxSlice = new MaxSliceSum();
