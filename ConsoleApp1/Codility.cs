@@ -425,6 +425,30 @@ namespace ConsoleApp1
 
     public sealed class PrimeAndCompositeNumbers
     {
+        public int CountFactor_improve(int N) {
+            var count = 0;
+            var upBound = Convert.ToInt32(Math.Sqrt(N));
+            for(var i = 1; i <= upBound; i++) {
+                if(N%i == 0) count += 2;
+            }
+            if(upBound * upBound == N) count--;
+
+            return count;
+        }
+        public int CountFactor(int N) {
+            var count = 0;
+            var i = 1;
+
+            while(i * i < N) {
+                if(N % i == 0) count += 2;
+                i++;
+            }
+
+            if(i*i == N) count++;
+
+            return count;
+        }
+
         public int MinPerimeterRectangle(int A)
         {
             int s = (int)Math.Floor(Math.Sqrt(A));

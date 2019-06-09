@@ -130,7 +130,7 @@ namespace XUnitTestProject1
             var leader = new Leader();
             var nums = new int[] { 4, 3,4,4,4,2};
 
-            Assert.Equal(2, leader.EquiLeader(nums));
+            Assert.Equal(2, leader.Equileader(nums));
         }
 
         [Fact]
@@ -170,6 +170,12 @@ namespace XUnitTestProject1
     }
     public sealed class PrimeAndCompositeTest
     {
+        [Fact]
+        public void CountFactorTest() {
+            Assert.Equal(8, new PrimeAndCompositeNumbers().CountFactor(24));
+            Assert.Equal(8, new PrimeAndCompositeNumbers().CountFactor_improve(24));
+        }
+
         [Fact]
         public void MinPerimeterTest()
         {

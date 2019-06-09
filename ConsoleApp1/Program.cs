@@ -11,7 +11,9 @@ namespace ConsoleApp1
         {
             var leader = new Leader();
             var nums = new int[] { 4, 3,4,4,4,2};
-            leader.EquiLeader(nums);
+            leader.Equileader(nums);
+
+            Console.WriteLine("kk");
             
         }
     }
