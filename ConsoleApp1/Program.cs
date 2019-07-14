@@ -9,14 +9,115 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var leader = new Leader();
-            var nums = new int[] { 4, 3,4,4,4,2};
-            leader.Equileader(nums);
+            // ISchoolReport sr = new SchoolReport();
+            // sr = new BeforeDecorator(sr);
+            // sr = new AfterDecorator(sr);
 
-            Console.WriteLine("kk");
+            // sr.Report();
+            var sr = new AfterDecorator(new BeforeDecorator(new SchoolReport()));
+            Console.WriteLine(sr.Report());
             
+
+  IComputer computer = new KeyBoard(new Monitor(new Disk(new Computer())));
+  Console.WriteLine(computer.getComputer());
         }
     }
+    public interface IComputer
+{
+    string getComputer();
+}
+public sealed class Computer : IComputer
+{
+    public string getComputer()
+    {
+        return "computer";
+    }
+}
+public abstract class ComputerDecorator : IComputer
+{
+    private IComputer _computer;
+    public ComputerDecorator(IComputer computer)
+    {
+        _computer = computer;
+    }
+
+    public virtual string getComputer()
+    {
+        return _computer.getComputer();
+    }
+}
+
+public class Disk : ComputerDecorator
+{
+    public Disk(IComputer computer) : base(computer)
+    {
+    }
+
+    public override String getComputer()
+    {
+        return base.getComputer() + " and a disk";
+    }
+}
+
+public class Monitor : ComputerDecorator
+{
+    public Monitor(IComputer computer) : base(computer)
+    {
+    }
+
+    public override String getComputer()
+    {
+        return base.getComputer() + " and a Monitor";
+    }
+}
+
+public class KeyBoard : ComputerDecorator
+{
+    public KeyBoard(IComputer computer) : base(computer)
+    {
+    }
+
+    public override String getComputer()
+    {
+        return base.getComputer() + " and a KeyBoard";
+    }
+}
+    public interface ISchoolReport {
+        string Report();
+    }
+    public sealed class SchoolReport : ISchoolReport
+    {
+        public string Report() {
+            return "report";
+        }
+    }
+    public  class Decorator : ISchoolReport{
+        private ISchoolReport _sr;
+        public Decorator(ISchoolReport sr) {
+            _sr = sr;
+        }
+        public virtual string Report() {
+            return _sr.Report();
+//            Console.WriteLine("Decorator");
+        }
+    }
+
+    public class BeforeDecorator : Decorator{
+        public BeforeDecorator(ISchoolReport sr) : base(sr){
+        }
+        public override string Report() {
+            return base.Report() + "before";
+        }
+    }
+    public class AfterDecorator : Decorator{
+        public AfterDecorator(ISchoolReport sr) : base(sr){
+        }
+        public override string Report() {
+            return base.Report() + "After";
+//            Console.WriteLine("After");
+        }
+    }
+    
     public class ListNode
     {
         public int val;

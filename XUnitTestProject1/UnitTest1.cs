@@ -257,6 +257,16 @@ namespace XUnitTestProject1
     public sealed class FibonacciNumbersTest
     {
         [Fact]
+        public void LadderTest() {
+            var fibFrog = new FibonacciNumbers();
+            var A = new int[] { 4,4,5,5,1};
+            var B = new int[] {3,2,4,3,1};
+
+            var actual = fibFrog.Ladder(A, B);
+            Assert.Equal(actual, new int[5]{5,1,8,0,1});
+        }
+
+        [Fact]
         public void FibFrogTest()
         {
             var fibFrog = new FibonacciNumbers();

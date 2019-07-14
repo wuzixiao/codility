@@ -177,7 +177,8 @@ namespace ConsoleApp1
             while(n <= max)
             {
                 ret.Add(n);
-                n = ret.TakeLast(2).Sum();
+                // n = ret.TakeLast(2).Sum();
+                n = ret.Skip(Math.Max(0, ret.Count() - 2)).Sum();
             }
 
             return ret;
@@ -186,6 +187,15 @@ namespace ConsoleApp1
         public int FibCount(int max)
         {
             return Fib(max).Count();
+        }
+
+        public int[] Ladder(int[] A, int[] B) {
+            var fibs = this.Fib(50000);
+            var ret = new int[A.Length];
+            for(var i = 0; i < A.Length; i++) {
+                ret[i] = fibs[A[i]] % (int)Math.Pow(2.0, (double)B[i]);
+            }
+            return ret;
         }
 
         public int FibFrog(int[] A)
