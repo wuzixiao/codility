@@ -136,7 +136,7 @@ namespace ConsoleApp1
                 if(curSum+a > mid)
                 {
                     blocks += 1;
-                    curSum = a;
+                    curSum = a; //the first element of next block is a
                 }
                 else
                 {
@@ -150,17 +150,18 @@ namespace ConsoleApp1
         public int MinMaxDivision(int K, int M, int[] A)
         {
             int max = A.Sum();
-            int min = max / K;
-            while(min <= max)
+            int min = A.Max();
+            while (min < max)
             {
                 var mid = (min + max) / 2;
                 var blocks = getBlocks(A, mid);
-                if(blocks > K)
+                if (blocks > K)
                 {
                     min = mid+1;
-                }else
-                {
-                    max = mid-1;
+                }
+                else 
+                { 
+                    max = mid;
                 }
             }
 
